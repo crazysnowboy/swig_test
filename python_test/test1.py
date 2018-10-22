@@ -2,7 +2,7 @@
 import sys
 mesh_pro_root = '../'
 sys.path.insert(0, mesh_pro_root + '/python')
-import python_api as my_py
+import _python_api as my_py
 
 import numpy as np
 

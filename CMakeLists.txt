@@ -1,4 +1,4 @@
-CMAKE_MINIMUM_REQUIRED(VERSION 2.6) #cmake 版本限定
+CMAKE_MINIMUM_REQUIRED(VERSION 3.0.2) #cmake 版本限定
 PROJECT(SWIG_Wrap_For_Python)  #工程名称
 
 

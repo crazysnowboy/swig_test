@@ -53,3 +53,36 @@ endforeach(file)
 list(APPEND libs )
 file(WRITE ${mid_file_save_path}/libs.txt ${libs})
 #file(WRITE ${mid_file_save_path}/libmyclib.conf ${PROJECT_SOURCE_DIR}/lib)
+
+
+
+cmake_policy(SET CMP0078 NEW)
+find_package(SWIG REQUIRED)
+include(UseSWIG)
+include_directories(/usr/include/python3.5m
+                    ${PROJECT_SOURCE_DIR}/python)
+
+if(${SWIG_FOUND})
+        message(" SWIG Found SWIG_DIR  = " ${SWIG_DIR})
+        message(" SWIG Found SWIG_EXECUTABLE  = " ${SWIG_EXECUTABLE})
+        message(" SWIG Found SWIG_VERSION  = " ${SWIG_VERSION})
+endif()
+set_property(   SOURCE ${PROJECT_SOURCE_DIR}/python/python_api.i 
+                PROPERTY CPLUSPLUS ON)
+
+file(GLOB_RECURSE CPP_SRCS "${PROJECT_SOURCE_DIR}/src/*.cpp")
+set(PythonLIBName python_api)
+swig_add_library(${PythonLIBName}
+        LANGUAGE python
+        TYPE SHARED
+        OUTPUT_DIR ${PROJECT_SOURCE_DIR}/python/output_dir
+        OUTFILE_DIR ${PROJECT_SOURCE_DIR}/python/outfile_dir
+        SOURCES ${PROJECT_SOURCE_DIR}/python/python_api.i ${CPP_SRCS})
+
+swig_link_libraries(${PythonLIBName} ${LIBRARIES}
+                /usr/lib/x86_64-linux-gnu/libpython3.5m.so)
+
+set_target_properties(${PythonLIBName} PROPERTIES
+        ARCHIVE_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/python"
+        LIBRARY_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/python"
+        RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/python")
