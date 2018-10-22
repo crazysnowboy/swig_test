@@ -1,22 +1,9 @@
-file(GLOB_RECURSE files_cpp_src "${PROJECT_SOURCE_DIR}/src/*.cpp")
-file(GLOB_RECURSE files_c_src "${PROJECT_SOURCE_DIR}/src/*.c")
 
 file(GLOB_RECURSE files_hpp "${PROJECT_SOURCE_DIR}/include/*.hpp")
 file(GLOB_RECURSE files_h "${PROJECT_SOURCE_DIR}/include/*.h")
 
 
 set(mid_file_save_path ${PROJECT_SOURCE_DIR}/python/cmake_generated)
-
-#for Bind numpy
-list(APPEND INCLUDE_DIR  /home/collin/Space_1_5_T/MySoftware/python/numpy/numpy/core/include)
-
-foreach(file ${files_cpp_src})
-     list(APPEND srcs ${file} " ")
-endforeach(file)
-foreach(file ${files_c_src})
-    list(APPEND srcs ${file} " ")
-endforeach(file)
-file(WRITE ${mid_file_save_path}/srcs.txt ${srcs})
 
 #--------------headers.h---------------------
 foreach(file ${files_hpp})
@@ -36,23 +23,6 @@ foreach(file ${files_h})
 endforeach(file)
 file(WRITE ${mid_file_save_path}/incs_for_wrap.i ${incs_2})
 
-
-##--------------inc_dirs.txt---------------------
-foreach(file ${INCLUDE_DIR})
-    list(APPEND inc_dirs ${file} " ")
-endforeach(file)
-file(WRITE ${mid_file_save_path}/inc_dirs.txt ${inc_dirs})
-
-##--------------libs-------------------
-foreach(file ${LIBRARIES})
-    list(APPEND libs ${file} " ")
-endforeach(file)
-#list(APPEND libs ${PROJECT_SOURCE_DIR}/lib/libmyclib.so " "
-#                 ${PROJECT_SOURCE_DIR}/lib/libmycpplib.so " ")
-
-list(APPEND libs )
-file(WRITE ${mid_file_save_path}/libs.txt ${libs})
-#file(WRITE ${mid_file_save_path}/libmyclib.conf ${PROJECT_SOURCE_DIR}/lib)
 
 
 
@@ -75,7 +45,7 @@ set(PythonLIBName python_api)
 swig_add_library(${PythonLIBName}
         LANGUAGE python
         TYPE SHARED
-        OUTPUT_DIR ${PROJECT_SOURCE_DIR}/python/output_dir
+        OUTPUT_DIR ${PROJECT_SOURCE_DIR}/python/
         OUTFILE_DIR ${PROJECT_SOURCE_DIR}/python/outfile_dir
         SOURCES ${PROJECT_SOURCE_DIR}/python/python_api.i ${CPP_SRCS})
 

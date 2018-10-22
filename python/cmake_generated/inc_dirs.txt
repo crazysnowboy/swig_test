@@ -1,1 +1,0 @@
-/home/collin/Space_0_5_T/code/FromGithub/tools/swig_test/include /usr/local/opencv330/include/opencv /usr/local/opencv330/include /home/collin/Space_1_5_T/MySoftware/python/numpy/numpy/core/include 
